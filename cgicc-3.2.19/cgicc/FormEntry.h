@@ -45,6 +45,7 @@
 
 #include "CgiDefs.h"
 #include "CgiUtils.h"
+#include "../logger/by_logger.h"
 
 namespace cgicc {
   
@@ -96,7 +97,9 @@ namespace cgicc {
     FormEntry(const std::string& name, 
 	      const std::string& value)
       : fName(name), fValue(value)
-    {}
+    {
+		LogDebug("name:%s, value:%s", fName.c_str(), fName.c_str());
+	}
     
     /*!
      * \brief Copy constructor.

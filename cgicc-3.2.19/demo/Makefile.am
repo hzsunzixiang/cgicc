@@ -14,14 +14,14 @@ test_cgi_SOURCES = test.cpp
 test_cgi_LDADD = ../cgicc/libcgicc.la @DEMO_LIBS@ $(top_srcdir)/logger/liblogger.a
 
 dns_cgi_SOURCES = dns.cpp
-dns_cgi_LDADD = ../cgicc/libcgicc.la @DEMO_LIBS@ @LIB_NET@
+dns_cgi_LDADD = ../cgicc/libcgicc.la @DEMO_LIBS@ @LIB_NET@ $(top_srcdir)/logger/liblogger.a
 
 upload_cgi_SOURCES = upload.cpp
-upload_cgi_LDADD = ../cgicc/libcgicc.la @DEMO_LIBS@
+upload_cgi_LDADD = ../cgicc/libcgicc.la @DEMO_LIBS@ $(top_srcdir)/logger/liblogger.a
 
 cookie_cgi_SOURCES = cookie.cpp
-cookie_cgi_LDADD = ../cgicc/libcgicc.la @DEMO_LIBS@
+cookie_cgi_LDADD = ../cgicc/libcgicc.la @DEMO_LIBS@ $(top_srcdir)/logger/liblogger.a
 
 cardgame_cgi_SOURCES = cardgame.cpp
-cardgame_cgi_LDADD = ../cgicc/libcgicc.la @DEMO_LIBS@
+cardgame_cgi_LDADD = ../cgicc/libcgicc.la @DEMO_LIBS@ $(top_srcdir)/logger/liblogger.a
 

@@ -1483,102 +1483,109 @@ int
 main(int argc, 
      char **argv)
 {
-   try {
-      Cgicc cgi;
-      
-       // Get the name and value of the cookie to set
-       
-       const_form_iterator actionIn = cgi.getElement("actionner");
-       const_form_iterator playedCard = cgi.getElement("card");
-       string action;
-       string card;
-        
-      
-       if (actionIn!= cgi.getElements().end() &&actionIn->getValue().empty() == false)
-       {
-       		action=actionIn->getValue();
-       		
-       }
-       if (playedCard!= cgi.getElements().end() &&playedCard->getValue().empty() == false)
-       {
-       		card=playedCard->getValue();
-       		
-       }
-	string staticSession="";
-	
-      //get a static session
-	if (argc>1)
+	if (BY_LOGMSG->QuickInitForLog("test", "log", 5, 10*1024*1024, "true") != 0)
 	{
-		
-		staticSession =argv[1];
-		
+		printf("WWLOG Init Failed. Name: %s", "test");
+		return -1;
 	}
+	LogDebug("cgi begin");
 
-	
-      // Send HTTP header
-	   
-      string vRet=getNUMCookie(cgi.getEnvironment().getCookieList());
-      
-      
-	if (vRet.compare("")==0&&staticSession.compare("")!=0)
-	{
-		
-		vRet=staticSession;
+	try {
+		Cgicc cgi;
+
+		// Get the name and value of the cookie to set
+
+		const_form_iterator actionIn = cgi.getElement("actionner");
+		const_form_iterator playedCard = cgi.getElement("card");
+		string action;
+		string card;
+
+
+		if (actionIn!= cgi.getElements().end() &&actionIn->getValue().empty() == false)
+		{
+			action=actionIn->getValue();
+
+		}
+		if (playedCard!= cgi.getElements().end() &&playedCard->getValue().empty() == false)
+		{
+			card=playedCard->getValue();
+
+		}
+		string staticSession="";
+
+		//get a static session
+		if (argc>1)
+		{
+
+			staticSession =argv[1];
+
+		}
+
+
+		// Send HTTP header
+
+		string vRet=getNUMCookie(cgi.getEnvironment().getCookieList());
+
+
+		if (vRet.compare("")==0&&staticSession.compare("")!=0)
+		{
+
+			vRet=staticSession;
+		}
+
+		if (vRet.compare("")==0&&getValue(vRet).compare("")==0)
+		{	
+
+			vRet=generateUnicCookie();
+
+			cout << HTTPHTMLHeader()
+				.setCookie(HTTPCookie(COOKIE_NAME, vRet));
+		}
+		else
+			cout << HTTPHTMLHeader();      // Set up the HTML document
+
+		cout << html() << head(title("Cgicc CardGame example")) << endl;
+		cout << body() << endl;
+
+		cout <<"<H1>Card Game</H1>";
+		cout <<"<div style=\"position:absolute;top:5;left:"<<250<<"\"><form name=\"start\"><input type=\"hidden\" name=\"actionner\" value=\"start\"><a href=\"javascript:document.forms.start.submit();\">Start a new Game</a></form></div>";
+		//if the are a cookie in the stock we parse data
+		datasplayer *vPlayer;
+		if (getValue(vRet).compare("")!=0)
+		{
+
+			vPlayer=convertStringToStuct(getValue(vRet));
+
+		}else
+		{
+
+			vPlayer= new datasplayer;
+			srand ( time(NULL) );     
+
+
+			stringstream buffer;
+			buffer << "P"<<(rand()%1000)+1<<"_"<<(rand()%1000)+1;
+			vPlayer->identifiant=buffer.str();
+
+			//We write a new empty value
+
+			writeValue(vRet,convertStructToString(vPlayer));
+
+		}
+		if (action.compare("start")==0)
+		{
+			writeFileGame(vPlayer->identifiant,"");
+		}
+
+		gameRules(vPlayer,&action,&card);
+
+		// Close the HTML document
+		cout << body() << html();
+
 	}
-	
-	if (vRet.compare("")==0&&getValue(vRet).compare("")==0)
-	{	
-	
-		vRet=generateUnicCookie();
-		
-		cout << HTTPHTMLHeader()
-	.setCookie(HTTPCookie(COOKIE_NAME, vRet));
+	catch(exception& e) {
+		// handle any errors - omitted for brevity
 	}
-    else
-      cout << HTTPHTMLHeader();      // Set up the HTML document
-    
-      cout << html() << head(title("Cgicc CardGame example")) << endl;
-      cout << body() << endl;
-      
-      cout <<"<H1>Card Game</H1>";
-      cout <<"<div style=\"position:absolute;top:5;left:"<<250<<"\"><form name=\"start\"><input type=\"hidden\" name=\"actionner\" value=\"start\"><a href=\"javascript:document.forms.start.submit();\">Start a new Game</a></form></div>";
-    //if the are a cookie in the stock we parse data
-    	datasplayer *vPlayer;
-	if (getValue(vRet).compare("")!=0)
-	{
-	
-		vPlayer=convertStringToStuct(getValue(vRet));
-		
-	}else
-	{
-		
-		vPlayer= new datasplayer;
-		srand ( time(NULL) );     
-		
-		
-		stringstream buffer;
-		buffer << "P"<<(rand()%1000)+1<<"_"<<(rand()%1000)+1;
-		vPlayer->identifiant=buffer.str();
-		
-		//We write a new empty value
-		
-		writeValue(vRet,convertStructToString(vPlayer));
-		
-	}
-     	if (action.compare("start")==0)
-	{
-		writeFileGame(vPlayer->identifiant,"");
-	}
-	
-     	gameRules(vPlayer,&action,&card);
-		
-      // Close the HTML document
-      cout << body() << html();
-	
-   }
-   catch(exception& e) {
-      // handle any errors - omitted for brevity
-   }
 }
 
 

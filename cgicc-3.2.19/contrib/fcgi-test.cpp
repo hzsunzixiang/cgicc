@@ -40,51 +40,57 @@ main(int /*argc*/,
      const char **/*argv*/, 
      char **/*envp*/)
 {
-  unsigned count = 0;
+	if (BY_LOGMSG->QuickInitForLog("test", "log", 5, 10*1024*1024, "true") != 0)
+	{
+		printf("WWLOG Init Failed. Name: %s", "test");
+		return -1;
+	}
+	LogDebug("cgi begin");
+	unsigned count = 0;
 
-  FCGX_Request request;
+	FCGX_Request request;
 
-  FCGX_Init();
-  FCGX_InitRequest(&request, 0, 0);
+	FCGX_Init();
+	FCGX_InitRequest(&request, 0, 0);
 
-  while(FCGX_Accept_r(&request) == 0) {
+	while(FCGX_Accept_r(&request) == 0) {
 
-    try {
-      FCgiIO IO(request);
-      Cgicc CGI(&IO);
+		try {
+			FCgiIO IO(request);
+			Cgicc CGI(&IO);
 
-      // Output the HTTP headers for an HTML document, and the HTML 4.0 DTD info
-      IO << HTTPHTMLHeader() << HTMLDoctype( HTMLDoctype::eStrict ) << endl
-         << html().set( "lang", "en" ).set( "dir", "ltr" ) << endl;
+			// Output the HTTP headers for an HTML document, and the HTML 4.0 DTD info
+			IO << HTTPHTMLHeader() << HTMLDoctype( HTMLDoctype::eStrict ) << endl
+				<< html().set( "lang", "en" ).set( "dir", "ltr" ) << endl;
 
-      // Set up the page's header and title.
-      IO << head() << endl
-         << title() << "GNU cgicc v" << CGI.getVersion() << title() << endl
-         << head() << endl;
+			// Set up the page's header and title.
+			IO << head() << endl
+				<< title() << "GNU cgicc v" << CGI.getVersion() << title() << endl
+				<< head() << endl;
 
-      // Start the HTML body
-      IO << body() << endl;
+			// Start the HTML body
+			IO << body() << endl;
 
-      // Print out a message
-      IO << h1("Cgicc/FastCGI Test") << endl
-         << "PID: " << getpid() << br() << endl
-         << "count: " << count++ << br() << endl;
+			// Print out a message
+			IO << h1("Cgicc/FastCGI Test") << endl
+				<< "PID: " << getpid() << br() << endl
+				<< "count: " << count++ << br() << endl;
 
-      IO  << "Form Elements:" << br() << endl;
+			IO  << "Form Elements:" << br() << endl;
 
-      for(const_form_iterator i = CGI.getElements().begin(); 
-	  i != CGI.getElements().end(); ++i )
-        IO << i->getName() << " = " << i->getValue() << br() << endl;
+			for(const_form_iterator i = CGI.getElements().begin(); 
+					i != CGI.getElements().end(); ++i )
+				IO << i->getName() << " = " << i->getValue() << br() << endl;
 
-      // Close the document
-      IO << body() << html();
-    }
-    catch(const exception&) {
-      // handle error condition
-    }
+			// Close the document
+			IO << body() << html();
+		}
+		catch(const exception&) {
+			// handle error condition
+		}
 
-    FCGX_Finish_r(&request);
-  }
+		FCGX_Finish_r(&request);
+	}
 
-  return 0;
+	return 0;
 }

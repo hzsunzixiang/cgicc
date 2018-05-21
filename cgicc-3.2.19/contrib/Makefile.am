@@ -16,10 +16,10 @@ noinst_PROGRAMS = nph-hello.cgi nph-login.cgi $(FCGI_TEST)
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_builddir)
 
 nph_hello_cgi_SOURCES = nph-hello.cpp
-nph_hello_cgi_LDADD = ../cgicc/libcgicc.la
+nph_hello_cgi_LDADD = ../cgicc/libcgicc.la $(top_srcdir)/logger/liblogger.a
 
 nph_login_cgi_SOURCES = nph-login.cpp
-nph_login_cgi_LDADD = ../cgicc/libcgicc.la
+nph_login_cgi_LDADD = ../cgicc/libcgicc.la $(top_srcdir)/logger/liblogger.a
 
 fcgi_test_cgi_SOURCES = fcgi-test.cpp FCgiIO.cpp
-fcgi_test_cgi_LDADD = ../cgicc/libcgicc.la @FCGI_LIBS@
+fcgi_test_cgi_LDADD = ../cgicc/libcgicc.la @FCGI_LIBS@ $(top_srcdir)/logger/liblogger.a

@@ -36,54 +36,60 @@
 using namespace std;
 using namespace cgicc;
 
-int
+	int
 main(int /*argc*/, 
-     char ** /*argv*/)
+		char ** /*argv*/)
 {
-  try {
-    Cgicc cgi;
+	if (BY_LOGMSG->QuickInitForLog("test", "log", 5, 10*1024*1024, "true") != 0)
+	{
+		printf("WWLOG Init Failed. Name: %s", "test");
+		return -1;
+	}
+	LogDebug("cgi begin");
+	try {
+		Cgicc cgi;
 
-    // Get the current time in the format Sun, 06 Nov 1994 08:49:37 GMT
-    char current_date [30];
-    time_t now = time(&now);
-    strftime(current_date, 30, "%a, %d %b %Y %H:%M:%S GMT", gmtime(&now));
+		// Get the current time in the format Sun, 06 Nov 1994 08:49:37 GMT
+		char current_date [30];
+		time_t now = time(&now);
+		strftime(current_date, 30, "%a, %d %b %Y %H:%M:%S GMT", gmtime(&now));
 
-    // Build our own server string
-    string server_string("GNU cgicc/");
-    server_string += cgi.getVersion();
+		// Build our own server string
+		string server_string("GNU cgicc/");
+		server_string += cgi.getVersion();
 
-    // Tell the server not to parse our headers
-    cout << HTTPResponseHeader("HTTP/1.1", 200, "OK")
-      .addHeader("Date", current_date)
-      .addHeader("Server", server_string)
-      .addHeader("Content-Language", "en")
-      .addHeader("Content-Type", "text/html");
+		// Tell the server not to parse our headers
+		cout << HTTPResponseHeader("HTTP/1.1", 200, "OK")
+			.addHeader("Date", current_date)
+			.addHeader("Server", server_string)
+			.addHeader("Content-Language", "en")
+			.addHeader("Content-Type", "text/html");
 
-    cout << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << endl;
-    
-    cout << "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"DTD/xhtml1-strict.dtd\">" << endl;
-    cout << "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">" << endl;
+		cout << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" << endl;
 
-    cout << "<head>" << endl;
+		cout << "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"DTD/xhtml1-strict.dtd\">" << endl;
+		cout << "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">" << endl;
 
-    // Output the style sheet portion of the header
-    cout << "<style><!-- " << endl;
-    cout << "   body { color: black; background-color: white; }" << endl;
-    cout << "   span.red { color: red; }" << endl;
-    cout << " --></style>" << endl;
+		cout << "<head>" << endl;
 
-    cout << "<title>GNU cgicc v" << cgi.getVersion() << "</title>" << endl;
-    cout << "</head>" << endl;
+		// Output the style sheet portion of the header
+		cout << "<style><!-- " << endl;
+		cout << "   body { color: black; background-color: white; }" << endl;
+		cout << "   span.red { color: red; }" << endl;
+		cout << " --></style>" << endl;
 
-    cout << "<body>" << endl;
-    cout << "<h1>Hello, world from GNU cgi<span class=\"red\">cc</span> v";
-    cout << cgi.getVersion() << "</h1>" << endl;
-    cout << "</body></html>" << endl;
-  }
-  
-  catch(const exception& e) {
-    // handle error condition
-  }
-  
-  return 0;
+		cout << "<title>GNU cgicc v" << cgi.getVersion() << "</title>" << endl;
+		cout << "</head>" << endl;
+
+		cout << "<body>" << endl;
+		cout << "<h1>Hello, world from GNU cgi<span class=\"red\">cc</span> v";
+		cout << cgi.getVersion() << "</h1>" << endl;
+		cout << "</body></html>" << endl;
+	}
+
+	catch(const exception& e) {
+		// handle error condition
+	}
+
+	return 0;
 }
