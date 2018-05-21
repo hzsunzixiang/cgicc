@@ -45,6 +45,7 @@
 #include "CgiUtils.h"
 #include "CgiInput.h"
 #include "HTTPCookie.h"
+#include "../logger/by_logger.h"
 
 namespace cgicc {
 
@@ -177,7 +178,10 @@ namespace cgicc {
      */
     inline std::string 
     getServerSoftware() 			const
-    { return fServerSoftware; }
+    {
+		LogDebug("fServerSoftware:%s", fServerSoftware.c_str());
+		return fServerSoftware;
+	}
     
     /*!
      * \brief Get the hostname, DNS name or IP address of the HTTP server
@@ -187,7 +191,10 @@ namespace cgicc {
      */
     inline std::string 
     getServerName() 				const
-    { return fServerName; }
+    { 
+		LogDebug("fServerName:%s", fServerName.c_str());
+		return fServerName;
+	}
     
     /*!
      * \brief Get the name and version of the gateway interface.
@@ -197,7 +204,10 @@ namespace cgicc {
      */
     inline std::string 
     getGatewayInterface() 			const
-    { return fGatewayInterface;}
+    {
+		LogDebug("fGatewayInterface:%s", fGatewayInterface.c_str());
+		return fGatewayInterface;
+	}
     
     /*!
      * \brief Get the name and revision of the protocol used for this request.
@@ -207,7 +217,10 @@ namespace cgicc {
      */
     inline std::string 
     getServerProtocol() 			const
-    { return fServerProtocol; }
+    { 
+		LogDebug("fServerProtocol:%s", fServerProtocol.c_str());
+		return fServerProtocol; 
+	}
     
     /*!
      * \brief Get the port number on the server to which this request was sent.
@@ -217,7 +230,10 @@ namespace cgicc {
      */
     inline unsigned long
     getServerPort() 				const
-    { return fServerPort; }
+    { 
+		LogDebug("fServerPort:%ld", fServerPort);
+		return fServerPort;
+	}
     
     /*!
      * \brief Determine if this is a secure request
@@ -227,7 +243,10 @@ namespace cgicc {
      */
     inline bool
     usingHTTPS() 				const
-    { return fUsingHTTPS; }
+    { 
+		LogDebug("fUsingHTTPS:%d", fUsingHTTPS);
+		return fUsingHTTPS; 
+	}
     //@}
     
     // ============================================================
@@ -248,7 +267,10 @@ namespace cgicc {
      */
     inline std::string 
     getCookies() 				const
-    { return fCookie; }
+    { 
+		LogDebug("fCookie:%s", fCookie.c_str());
+		return fCookie; 
+	}
     
     /*!
      * \brief Get a \c vector containing the HTTP cookies 
@@ -261,7 +283,10 @@ namespace cgicc {
      */
     inline const std::vector<HTTPCookie>& 
     getCookieList() 				const
-    { return fCookies; }
+    { 
+		LogDebug("getCookieList: len:%ld", fCookies.size());
+		return fCookies; 
+	}
     
     /*!
      * \brief Get the request method used for this query.
@@ -271,7 +296,10 @@ namespace cgicc {
      */
     inline std::string 
     getRequestMethod()   			const
-    { return fRequestMethod; }
+    {
+		LogDebug("fRequestMethod:%s", fRequestMethod.c_str());
+		return fRequestMethod;
+	}
     
     /*!
      * \brief Get the extra path information for this request, given by the 
@@ -283,7 +311,10 @@ namespace cgicc {
      */
     inline std::string
     getPathInfo() 				const
-    { return fPathInfo; }
+    { 
+		LogDebug("fPathInfo:%s", fPathInfo.c_str());
+		return fPathInfo; 
+	}
     
     /*!
      * \brief Get the translated path information (virtual to physical mapping).
@@ -293,7 +324,10 @@ namespace cgicc {
      */
     inline std::string 
     getPathTranslated() 			const
-    { return fPathTranslated; }
+    { 
+		LogDebug("fPathTranslated:%s", fPathTranslated.c_str());
+		return fPathTranslated; 
+	}
     
     /*!
      * \brief Get the full path to this CGI application
@@ -303,7 +337,10 @@ namespace cgicc {
      */
     inline std::string 
     getScriptName() 				const
-    { return fScriptName; }
+    {
+		LogDebug("fScriptName:%s", fScriptName.c_str());
+		return fScriptName; 
+	}
     
     /*!
      * \brief Get the query string for this request.
@@ -316,7 +353,10 @@ namespace cgicc {
      */
     inline std::string 
     getQueryString()  				const
-    { return fQueryString; }
+    { 
+		LogDebug("the QueryString:%s", fQueryString.c_str());
+		return fQueryString; 
+	}
     
     /*!
      * \brief Get the length of the data read from standard input, in chars.
@@ -326,7 +366,10 @@ namespace cgicc {
      */
     inline unsigned long
     getContentLength() 				const
-    { return fContentLength; }
+    { 
+		LogDebug("fContentLength:%lu", fContentLength);
+		return fContentLength; 
+	}
     
     /*!
      * \brief Get the content type of the submitted information.
@@ -341,7 +384,10 @@ namespace cgicc {
      */
     inline std::string 
     getContentType() 				const
-    { return fContentType; }
+    {
+		LogDebug("fContentType:%s", fContentType.c_str());
+		return fContentType; 
+	}
     
     /*!
      * \brief Get the data passed to the CGI application via standard input.
@@ -351,7 +397,10 @@ namespace cgicc {
      */
     inline std::string
     getPostData() 				const
-    { return fPostData; }
+    { 
+		LogDebug("fPostData:%s", fPostData.c_str());
+		return fPostData; 
+	}
     //@}
     
     // ============================================================
@@ -369,7 +418,10 @@ namespace cgicc {
      */
     inline std::string 
     getReferrer() 				const
-    { return fReferrer; }
+    { 
+		LogDebug("fReferrer:%s", fReferrer.c_str());
+		return fReferrer; 
+	}
     //@}
     
     // ============================================================
@@ -387,7 +439,10 @@ namespace cgicc {
      */
     inline std::string 
     getRemoteHost() 				const
-    { return fRemoteHost; }
+    { 
+		LogDebug("fRemoteHost:%s", fRemoteHost.c_str());
+		return fRemoteHost; 
+	}
     
     /*!
      * \brief Get the IP address of the remote machine making this request
@@ -397,7 +452,10 @@ namespace cgicc {
      */
     inline std::string 
     getRemoteAddr() 				const
-    { return fRemoteAddr; }
+    { 
+		LogDebug("fRemoteAddr:%s", fRemoteAddr.c_str());
+		return fRemoteAddr;
+	}
     
     /*!
      * \brief Get the protocol-specific user authentication method used.
@@ -408,7 +466,9 @@ namespace cgicc {
      */
     inline std::string 
     getAuthType() 				const
-    { return fAuthType; }
+    { 
+		LogDebug("fAuthType:%s", fAuthType.c_str());
+		return fAuthType; }
     
     /*!
      * \brief Get the authenticated remote user name.
@@ -419,7 +479,10 @@ namespace cgicc {
      */
     inline std::string 
     getRemoteUser() 				const
-    { return fRemoteUser; }
+    {
+		LogDebug("fRemoteUser:%s", fRemoteUser.c_str());
+		return fRemoteUser; 
+	}
     
     /*!
      * \brief Get the remote user name retrieved from the server.
@@ -433,7 +496,10 @@ namespace cgicc {
      */
     inline std::string 
     getRemoteIdent()    			const
-    { return fRemoteIdent; }
+    { 
+		LogDebug("fRemoteIdent:%s", fRemoteIdent.c_str());
+		return fRemoteIdent; 
+	}
     
     /*!
      * \brief Get the MIME data types accepted by the client's browser.
@@ -443,7 +509,10 @@ namespace cgicc {
      */
     inline std::string 
     getAccept() 				const
-    { return fAccept; }
+    {
+		LogDebug("fAccept:%s", fAccept.c_str());
+		return fAccept;
+	}
     
     /*!
      * \brief Get the name of the browser used for this CGI request.
@@ -454,7 +523,10 @@ namespace cgicc {
      */
     inline std::string 
     getUserAgent() 				const
-    { return fUserAgent; }
+    { 
+		LogDebug("fUserAgent:%s", fUserAgent.c_str());
+		return fUserAgent; 
+	}
     //@}
     
     // ============================================================
@@ -474,7 +546,10 @@ namespace cgicc {
      */
     inline std::string 
     getRedirectRequest() 			const
-    { return fRedirectRequest; }
+    { 
+		LogDebug("fRedirectRequest:%s", fRedirectRequest.c_str());
+		return fRedirectRequest; 
+	}
     
     /*!
      * \brief Get the redirect URL.
@@ -486,7 +561,10 @@ namespace cgicc {
      */
     inline std::string 
     getRedirectURL() 				const
-    { return fRedirectURL; }
+    {
+		LogDebug("fRedirectURL:%s", fRedirectURL.c_str());
+		return fRedirectURL; 
+	}
     
     /*!
      * \brief Get the redirect status.
@@ -497,7 +575,10 @@ namespace cgicc {
      */
     inline std::string 
     getRedirectStatus() 			const
-    { return fRedirectStatus; }
+    { 
+		LogDebug("fRedirectStatus:%s", fRedirectStatus.c_str());
+		return fRedirectStatus; 
+	}
     //@}
     
   protected:
