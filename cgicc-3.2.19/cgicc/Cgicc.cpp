@@ -342,12 +342,16 @@ cgicc::Cgicc::findEntries(const std::string& param,
 cgicc::Cgicc::parseFormInput(const std::string& data, const std::string &content_type)
 {
 
+	LogDebug("parseFormInput, content_type:%s", content_type.c_str());
 	std::string standard_type	= "application/x-www-form-urlencoded";
 	std::string multipart_type 	= "multipart/form-data";
 
 	// Don't waste time on empty input
 	if(true == data.empty())
+	{
+		LogDebug("data.empty == true");
 		return;
+	}
 
 	// Standard content type = application/x-www-form-urlencoded
 	// It may not be explicitly specified
