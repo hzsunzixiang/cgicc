@@ -119,6 +119,6 @@ fi
 
 dnl Always output certain files
 AC_CONFIG_FILES([Makefile cgicc/Makefile cgicc/CgiDefs.h 
-  support/Makefile support/cgicc-config doc/Makefile doc/Doxyfile])
+  support/Makefile support/cgicc-config doc/Makefile doc/Doxyfile logger/Makefile])
 
 AC_OUTPUT( cgicc.pc )
