@@ -38,6 +38,7 @@
 #include "cgicc/Cgicc.h"
 #include "cgicc/HTTPHTMLHeader.h"
 #include "cgicc/HTMLClasses.h"
+#include "logger/by_logger.h"
 
 #if HAVE_SYS_UTSNAME_H
 #  include <sys/utsname.h>
@@ -172,6 +173,13 @@ int
 main(int /*argc*/, 
      char ** /*argv*/)
 {
+	if (BY_LOGMSG->QuickInitForLog("test", "log", 5, 10*1024*1024, "true") != 0)
+	{
+		printf("WWLOG Init Failed. Name: %s", "test");
+		return -1;
+	}
+	LogDebug("cgi begin");
+
   try {
 #if HAVE_GETTIMEOFDAY
     timeval start;

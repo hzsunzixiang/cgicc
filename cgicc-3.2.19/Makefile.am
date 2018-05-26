@@ -10,7 +10,7 @@ endif
 
 ACLOCAL_AMFLAGS= 
 
-SUBDIRS = cgicc doc support $(DEMO) logger
+SUBDIRS = logger cgicc doc support $(DEMO) 
 
 CLEANFILES = *~
 
