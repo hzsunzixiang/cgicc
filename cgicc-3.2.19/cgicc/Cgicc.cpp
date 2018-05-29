@@ -186,7 +186,7 @@ cgicc::MultipartHeader::operator= (const MultipartHeader& head)
 cgicc::Cgicc::Cgicc(CgiInput *input)
 	: fEnvironment(input)
 { 
-	LogDebug("Cgicc constructor, constructor fEnvironment, input:%x", input);
+	LogDebug("Cgicc constructor, constructor fEnvironment, input:%p", input);
 	// this can be tweaked for performance
 	fFormData.reserve(20);
 	fFormFiles.reserve(2);

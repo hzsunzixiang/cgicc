@@ -62,7 +62,7 @@ void showForm(const Cgicc& formData);
 	void
 printForm(const Cgicc& cgi)
 {
-	LogDebug("printForm begin....");
+	LogDebug("printForm begin");
 	cout << "<form method=\"post\" action=\"" 
 		<< cgi.getEnvironment().getScriptName() << "\">" << endl;
 
@@ -167,7 +167,7 @@ printForm(const Cgicc& cgi)
 		<< "<input type=\"submit\" name=\"submit\"  value=\"Submit\" />"
 		<< "<input type=\"reset\" value=\"Nevermind\" />"
 		<< "</p></div></form>" << endl;
-	LogDebug("printForm finish....");
+	LogDebug("printForm finish");
 }
 
 // Main Street, USA
@@ -182,6 +182,10 @@ main(int /*argc*/,
 	}
 	LogDebug("cgi begin");
 
+
+	const char* confname = getenv("WEB_CONF") ;
+	LogDebug("confname:%s", confname);
+
 	try {
 #if HAVE_GETTIMEOFDAY
 		timeval start;
@@ -190,6 +194,7 @@ main(int /*argc*/,
 
 		// Create a new Cgicc object containing all the CGI data
 		Cgicc cgi;
+		// ericksun : have already dump env, cookies, and form
 
 		// If the user wants to throw an exception, go ahead and do it
 		if(cgi.queryCheckbox("throw") && ! cgi.queryCheckbox("restore"))
@@ -446,7 +451,7 @@ dumpEnvironment(const CgiEnvironment& env)
 	void
 dumpList(const Cgicc& formData) 
 {
-	LogDebug("dumpList begin....");
+	LogDebug("dumpList begin");
 	cout << h2("Form Data via vector") << endl;
 
 	cout << cgicc::div().set("align","center") << endl;
@@ -465,7 +470,7 @@ dumpList(const Cgicc& formData)
 			<< td(iter->getValue()) << tr() << endl;
 	}
 	cout << table() << cgicc::div() << endl;
-	LogDebug("dumpList finish....");
+	LogDebug("dumpList finish");
 }
 
 // Print out information customized for each element
@@ -473,7 +478,7 @@ dumpList(const Cgicc& formData)
 showForm(const Cgicc& formData) 
 {
 
-	LogDebug("showForm begin....");
+	LogDebug("showForm begin");
 	// I am using an if statement to check if each element is found
 	cout << h2("Form Data via Cgicc") << endl;
 
@@ -562,5 +567,5 @@ showForm(const Cgicc& formData)
 		cout << "You don't like to read!?" << br() << endl;
 
 	cout << cgicc::div() << endl;
-	LogDebug("showForm finish....");
+	LogDebug("showForm finish");
 }

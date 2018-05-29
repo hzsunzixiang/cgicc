@@ -268,7 +268,7 @@ namespace cgicc {
     inline std::string 
     getCookies() 				const
     { 
-		LogDebug("fCookie:%s", fCookie.c_str());
+		LogDebug("getCookies, fCookie:%s", fCookie.c_str());
 		return fCookie; 
 	}
     

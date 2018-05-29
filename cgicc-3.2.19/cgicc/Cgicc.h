@@ -420,7 +420,7 @@ namespace cgicc {
     //@}
     
   private:
-    CgiEnvironment 		fEnvironment;
+    CgiEnvironment 		fEnvironment;  // ericksun: this will recorde the env and cookies
     std::vector<FormEntry> 	fFormData;
     std::vector<FormFile> 	fFormFiles;
 

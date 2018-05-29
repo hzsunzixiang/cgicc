@@ -56,7 +56,7 @@ AC_CXX_HAVE_STL
 dnl Enable maximum compiler warnings for g++
 AC_MSG_CHECKING(maximum C++ compiler warning level)
 if test "$GXX" = yes; then
-  CXXFLAGS_WARN="-Wall -W -pedantic"
+  CXXFLAGS_WARN="-Wall -W"
   CXXFLAGS="$CXXFLAGS_WARN $CXXFLAGS"
 fi
 AC_MSG_RESULT($CXXFLAGS_WARN)

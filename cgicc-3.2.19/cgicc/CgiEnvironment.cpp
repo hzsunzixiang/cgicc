@@ -66,6 +66,7 @@ cgicc::CgiEnvironment::CgiEnvironment(CgiInput *input)
 #endif
 
 	if(stringsAreEqual(fRequestMethod, "post") || stringsAreEqual(fRequestMethod, "put")) {
+		LogDebug("fRequestMethod:%s", fRequestMethod.c_str());
 		// Don't use auto_ptr, but vector instead
 		// Bug reported by shinra@j10n.org
 		std::vector<char> data(fContentLength);
@@ -89,6 +90,7 @@ cgicc::CgiEnvironment::CgiEnvironment(CgiInput *input)
 						throw std::runtime_error("I/O error");
 
 				fPostData = std::string( &data[0], getContentLength() );
+				LogDebug("fPostData:%s", fPostData.c_str());
 			} 
 	}
 
@@ -177,6 +179,7 @@ cgicc::CgiEnvironment::operator= (const CgiEnvironment& env)
 	void
 cgicc::CgiEnvironment::parseCookies()
 {
+	LogDebug("parseCookies");
 	std::string data = fCookie;
 
 	if(false == data.empty()) {
